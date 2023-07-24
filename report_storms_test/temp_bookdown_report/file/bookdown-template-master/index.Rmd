@@ -1,0 +1,66 @@
+---
+title: storms
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+
+
+# About the dataset {.unnumbered #about}
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+library(fabR)
+library(madshapR)
+library(DT)
+library(dplyr)
+library(tidyr)
+library(stringr)
+
+load(file = paste0("C:/Users/guill/OneDrive/Bureau/R/test-iris-3/report_storms_test/temp_bookdown_report/bookdown_report.RData"))
+
+```
+--------------------------------------------------------------------------------
+
+
+## Overview
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+datatable(.summary_var$Overview, colnames = rep("",ncol(.summary_var$Overview)),
+    options = list(pageLength = nrow(.summary_var$Overview),scrollX = TRUE),
+    rownames = FALSE,escape = FALSE)
+
+```
+
+--------------------------------------------------------------------------------
+
+
+## Variables summary
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+
+# if(toc == "variables"){
+
+  datatable(
+    data_dict_flat %>%
+      mutate(
+        name = ifelse(name %in% col_id, name, paste0(
+        "<a href=\"./var",`index in data dict.`,".html\" >",name,"</a>"))),
+    options=list(scrollX = TRUE,pageLength=20),rownames = FALSE,escape = FALSE)
+
+# }else{
+# 
+#   datatable(
+#     data_dict_flat,
+#     options = 
+#       list(scrollX = TRUE, pageLength=20),rownames = FALSE,escape = FALSE)
+# 
+# }
+
+```
+
+--------------------------------------------------------------------------------
+
+

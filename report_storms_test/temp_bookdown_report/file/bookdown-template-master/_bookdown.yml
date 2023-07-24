@@ -1,0 +1,8 @@
+book_filename: "bookdownproj"
+output_dir: docs
+delete_merged_file: false
+language:
+  ui:
+    chapter_name: ""
+
+

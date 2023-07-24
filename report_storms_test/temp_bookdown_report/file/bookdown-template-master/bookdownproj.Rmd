@@ -1,0 +1,542 @@
+---
+title: storms
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+
+
+# About the dataset {.unnumbered #about}
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+library(fabR)
+library(madshapR)
+library(DT)
+library(dplyr)
+library(tidyr)
+library(stringr)
+
+load(file = paste0("C:/Users/guill/OneDrive/Bureau/R/test-iris-3/report_storms_test/temp_bookdown_report/bookdown_report.RData"))
+
+```
+--------------------------------------------------------------------------------
+
+
+## Overview
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+datatable(.summary_var$Overview, colnames = rep("",ncol(.summary_var$Overview)),
+    options = list(pageLength = nrow(.summary_var$Overview),scrollX = TRUE),
+    rownames = FALSE,escape = FALSE)
+
+```
+
+--------------------------------------------------------------------------------
+
+
+## Variables summary
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+
+# if(toc == "variables"){
+
+  datatable(
+    data_dict_flat %>%
+      mutate(
+        name = ifelse(name %in% col_id, name, paste0(
+        "<a href=\"./var",`index in data dict.`,".html\" >",name,"</a>"))),
+    options=list(scrollX = TRUE,pageLength=20),rownames = FALSE,escape = FALSE)
+
+# }else{
+# 
+#   datatable(
+#     data_dict_flat,
+#     options = 
+#       list(scrollX = TRUE, pageLength=20),rownames = FALSE,escape = FALSE)
+# 
+# }
+
+```
+
+--------------------------------------------------------------------------------
+
+
+
+<!--chapter:end:index.Rmd-->
+
+# name{.unnumbered #var1}
+
+**COMMENTARY**
+
+>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
+fugiat nulla pariatur.
+
+
+**VARIABLE CHARACTERISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+
+  datatable(t(
+     data_dict$Variables %>%
+     filter(name == 'name')),
+   options = list(dom = 't', scrollX = TRUE, ordering = FALSE,paging = FALSE),
+   rownames = TRUE, colnames = rep('', 2),filter = 'none' ,  escape = FALSE)
+```
+
+</div>
+
+
+
+----------------------------------------------------------------------
+
+**SUMMARY STATISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+ plots <- variable_visualize(
+  dataset,
+  col = 'name',
+  data_dict = data_dict, 
+  group_by = '',
+  .summary_var = .summary_var)       
+        
+  if(!is.null(plots$summary_table))      plots$summary_table                  
+```
+
+</div>
+
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+  if(!is.null(plots$summary_categories)) plots$summary_categories             
+```
+
+</div>
+
+
+---------------------------------------------------------------------
+
+**VISUAL REPRESENTATION**
+
+```{r, figures-plot12-1, fig.show='hold',fig.align = 'center',echo = FALSE,message = FALSE, warning = FALSE, results='hide'}
+
+        
+if(!is.null(plots$main_values_1))      plots$main_values_1
+if(!is.null(plots$main_values_2))      plots$main_values_2
+if(!is.null(plots$cat_values))         plots$cat_values
+if(!is.null(plots$missing_values))     plots$missing_values
+if(!is.null(plots$pie_values))         plots$pie_values                       
+```
+
+
+<!--chapter:end:01-name.Rmd-->
+
+# date{.unnumbered #var2}
+
+
+**VARIABLE CHARACTERISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+
+  datatable(t(
+     data_dict$Variables %>%
+     filter(name == 'date')),
+   options = list(dom = 't', scrollX = TRUE, ordering = FALSE,paging = FALSE),
+   rownames = TRUE, colnames = rep('', 2),filter = 'none' ,  escape = FALSE)
+```
+
+</div>
+
+
+
+----------------------------------------------------------------------
+
+**SUMMARY STATISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+ plots <- variable_visualize(
+  dataset,
+  col = 'date',
+  data_dict = data_dict, 
+  group_by = '',
+  .summary_var = .summary_var)       
+        
+  if(!is.null(plots$summary_table))      plots$summary_table                  
+```
+
+</div>
+
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+  if(!is.null(plots$summary_categories)) plots$summary_categories             
+```
+
+</div>
+
+
+---------------------------------------------------------------------
+
+**VISUAL REPRESENTATION**
+
+```{r, figures-plot12-2, fig.show='hold',fig.align = 'center',echo = FALSE,message = FALSE, warning = FALSE, results='hide'}
+
+        
+if(!is.null(plots$main_values_1))      plots$main_values_1
+if(!is.null(plots$main_values_2))      plots$main_values_2
+if(!is.null(plots$cat_values))         plots$cat_values
+if(!is.null(plots$missing_values))     plots$missing_values
+if(!is.null(plots$pie_values))         plots$pie_values                       
+```
+
+
+<!--chapter:end:02-date.Rmd-->
+
+# lat{.unnumbered #var3}
+
+
+**VARIABLE CHARACTERISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+
+  datatable(t(
+     data_dict$Variables %>%
+     filter(name == 'lat')),
+   options = list(dom = 't', scrollX = TRUE, ordering = FALSE,paging = FALSE),
+   rownames = TRUE, colnames = rep('', 2),filter = 'none' ,  escape = FALSE)
+```
+
+</div>
+
+
+
+----------------------------------------------------------------------
+
+**SUMMARY STATISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+ plots <- variable_visualize(
+  dataset,
+  col = 'lat',
+  data_dict = data_dict, 
+  group_by = '',
+  .summary_var = .summary_var)       
+        
+  if(!is.null(plots$summary_table))      plots$summary_table                  
+```
+
+</div>
+
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+  if(!is.null(plots$summary_categories)) plots$summary_categories             
+```
+
+</div>
+
+
+---------------------------------------------------------------------
+
+**VISUAL REPRESENTATION**
+
+```{r, figures-plot12-3, fig.show='hold',fig.align = 'center',echo = FALSE,message = FALSE, warning = FALSE, results='hide'}
+
+        
+if(!is.null(plots$main_values_1))      plots$main_values_1
+if(!is.null(plots$main_values_2))      plots$main_values_2
+if(!is.null(plots$cat_values))         plots$cat_values
+if(!is.null(plots$missing_values))     plots$missing_values
+if(!is.null(plots$pie_values))         plots$pie_values                       
+```
+
+
+<!--chapter:end:03-lat.Rmd-->
+
+# status{.unnumbered #var4}
+
+
+**VARIABLE CHARACTERISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+
+  datatable(t(
+     data_dict$Variables %>%
+     filter(name == 'status')),
+   options = list(dom = 't', scrollX = TRUE, ordering = FALSE,paging = FALSE),
+   rownames = TRUE, colnames = rep('', 2),filter = 'none' ,  escape = FALSE)
+```
+
+</div>
+
+
+* **Categories**: 
+
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+                   
+  datatable(
+    data_dict$Categories %>% 
+      filter(variable == 'status') %>%
+    select(variable, name, 
+    matches(c('^label$','^label:[[:alnum:]]'))[1], missing) %>%
+    mutate(across(everything(), as.character)),
+    options = list(scrollX = TRUE),rownames = FALSE)                          
+```
+
+</div>
+
+
+
+----------------------------------------------------------------------
+
+**SUMMARY STATISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+ plots <- variable_visualize(
+  dataset,
+  col = 'status',
+  data_dict = data_dict, 
+  group_by = '',
+  .summary_var = .summary_var)       
+        
+  if(!is.null(plots$summary_table))      plots$summary_table                  
+```
+
+</div>
+
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+  if(!is.null(plots$summary_categories)) plots$summary_categories             
+```
+
+</div>
+
+
+---------------------------------------------------------------------
+
+**VISUAL REPRESENTATION**
+
+```{r, figures-plot12-4, fig.show='hold',fig.align = 'center',echo = FALSE,message = FALSE, warning = FALSE, results='hide'}
+
+        
+if(!is.null(plots$main_values_1))      plots$main_values_1
+if(!is.null(plots$main_values_2))      plots$main_values_2
+if(!is.null(plots$cat_values))         plots$cat_values
+if(!is.null(plots$missing_values))     plots$missing_values
+if(!is.null(plots$pie_values))         plots$pie_values                       
+```
+
+
+<!--chapter:end:04-status.Rmd-->
+
+# wind{.unnumbered #var5}
+
+
+**VARIABLE CHARACTERISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+
+  datatable(t(
+     data_dict$Variables %>%
+     filter(name == 'wind')),
+   options = list(dom = 't', scrollX = TRUE, ordering = FALSE,paging = FALSE),
+   rownames = TRUE, colnames = rep('', 2),filter = 'none' ,  escape = FALSE)
+```
+
+</div>
+
+
+
+----------------------------------------------------------------------
+
+**SUMMARY STATISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+ plots <- variable_visualize(
+  dataset,
+  col = 'wind',
+  data_dict = data_dict, 
+  group_by = '',
+  .summary_var = .summary_var)       
+        
+  if(!is.null(plots$summary_table))      plots$summary_table                  
+```
+
+</div>
+
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+  if(!is.null(plots$summary_categories)) plots$summary_categories             
+```
+
+</div>
+
+
+---------------------------------------------------------------------
+
+**VISUAL REPRESENTATION**
+
+```{r, figures-plot12-5, fig.show='hold',fig.align = 'center',echo = FALSE,message = FALSE, warning = FALSE, results='hide'}
+
+        
+if(!is.null(plots$main_values_1))      plots$main_values_1
+if(!is.null(plots$main_values_2))      plots$main_values_2
+if(!is.null(plots$cat_values))         plots$cat_values
+if(!is.null(plots$missing_values))     plots$missing_values
+if(!is.null(plots$pie_values))         plots$pie_values                       
+```
+
+
+<!--chapter:end:05-wind.Rmd-->
+
+# pressure{.unnumbered #var6}
+
+
+**VARIABLE CHARACTERISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+
+  datatable(t(
+     data_dict$Variables %>%
+     filter(name == 'pressure')),
+   options = list(dom = 't', scrollX = TRUE, ordering = FALSE,paging = FALSE),
+   rownames = TRUE, colnames = rep('', 2),filter = 'none' ,  escape = FALSE)
+```
+
+</div>
+
+
+
+----------------------------------------------------------------------
+
+**SUMMARY STATISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+ plots <- variable_visualize(
+  dataset,
+  col = 'pressure',
+  data_dict = data_dict, 
+  group_by = '',
+  .summary_var = .summary_var)       
+        
+  if(!is.null(plots$summary_table))      plots$summary_table                  
+```
+
+</div>
+
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+  if(!is.null(plots$summary_categories)) plots$summary_categories             
+```
+
+</div>
+
+
+---------------------------------------------------------------------
+
+**VISUAL REPRESENTATION**
+
+```{r, figures-plot12-6, fig.show='hold',fig.align = 'center',echo = FALSE,message = FALSE, warning = FALSE, results='hide'}
+
+        
+if(!is.null(plots$main_values_1))      plots$main_values_1
+if(!is.null(plots$main_values_2))      plots$main_values_2
+if(!is.null(plots$cat_values))         plots$cat_values
+if(!is.null(plots$missing_values))     plots$missing_values
+if(!is.null(plots$pie_values))         plots$pie_values                       
+```
+
+
+<!--chapter:end:06-pressure.Rmd-->
+

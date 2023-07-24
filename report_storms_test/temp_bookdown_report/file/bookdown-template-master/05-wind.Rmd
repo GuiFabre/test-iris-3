@@ -1,0 +1,71 @@
+# wind{.unnumbered #var5}
+
+
+**VARIABLE CHARACTERISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+
+  datatable(t(
+     data_dict$Variables %>%
+     filter(name == 'wind')),
+   options = list(dom = 't', scrollX = TRUE, ordering = FALSE,paging = FALSE),
+   rownames = TRUE, colnames = rep('', 2),filter = 'none' ,  escape = FALSE)
+```
+
+</div>
+
+
+
+----------------------------------------------------------------------
+
+**SUMMARY STATISTICS**
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+ plots <- variable_visualize(
+  dataset,
+  col = 'wind',
+  data_dict = data_dict, 
+  group_by = '',
+  .summary_var = .summary_var)       
+        
+  if(!is.null(plots$summary_table))      plots$summary_table                  
+```
+
+</div>
+
+
+<div style= "display:flex; margin:auto" > 
+
+
+```{r echo = FALSE,message = FALSE,warning = FALSE,knitr.figure = TRUE}
+
+        
+  if(!is.null(plots$summary_categories)) plots$summary_categories             
+```
+
+</div>
+
+
+---------------------------------------------------------------------
+
+**VISUAL REPRESENTATION**
+
+```{r, figures-plot12-5, fig.show='hold',fig.align = 'center',echo = FALSE,message = FALSE, warning = FALSE, results='hide'}
+
+        
+if(!is.null(plots$main_values_1))      plots$main_values_1
+if(!is.null(plots$main_values_2))      plots$main_values_2
+if(!is.null(plots$cat_values))         plots$cat_values
+if(!is.null(plots$missing_values))     plots$missing_values
+if(!is.null(plots$pie_values))         plots$pie_values                       
+```
+

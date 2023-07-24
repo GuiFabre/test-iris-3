@@ -57,8 +57,8 @@ create_example_files <- function(){
 
 # import files
 create_example_files()
-storms <- read_csv_any_formats("storms.csv")
-storms_data_dict <- read_excel_allsheets("data_dict_storm.xlsx")
+storms <- read_csv_any_formats("example_files/storms.csv")
+storms_data_dict <- read_excel_allsheets("example_files/data_dict_storm.xlsx")
 
 # select and filter column/rows you would like to include in your visualization
 storms <- 
@@ -69,7 +69,7 @@ storms <-
   select(name, status, date, lat, wind, pressure)
 
 # specify the name of the report and the dataset to visualize
-report_name <- 'report_storms'
+report_name <- 'report_storms_test'
 
 dataset_visualize(
   dataset = storms,
@@ -99,7 +99,7 @@ open_visual_report(report_name_group)
 
 # redo the report
 dataset_visualize_redo(report_name)
-open_visual_report('report_storms')
+open_visual_report(report_name)
 
 # when everything is ok for the report, you can delete original files
 try(dir_delete(paste0(report_name,"/temp_bookdown_report/")))
