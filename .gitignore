@@ -1,0 +1,7 @@
+.Rproj.user
+*.Rproj
+*my_files
+.Rhistory
+.RData
+.Ruserdata
+*report_storms_by_status
