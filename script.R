@@ -1,7 +1,7 @@
 # import libraries
 
-library(fabR)        # read/write files
 library(tidyverse)   # to transform and shape files
+library(fabR)        # read/write files
 library(madshapR)    # for the function dataset_visualize
 library(haven)       # for categorical variables
 library(fs)
@@ -31,8 +31,32 @@ dataset_visualize_redo <- function(report_name){
   if(file.exists(paste0(path_to,"/docs"))) try(dir_delete(paste0(path_to,"/docs")))
   dir_copy(paste0(dir,"/docs"),paste0(path_to,"/docs"),overwrite = TRUE)  
 }
+create_example_files <- function(){
+  if(file.exists('example_files')) dir_delete('example_files')
+  dir_create('example_files')
+  storms <-
+    dplyr::storms %>%
+    unite(
+      col = date ,na.rm = TRUE,
+      c('year','month','day'),
+      sep = '-', remove = TRUE) %>%
+    filter(name %in% c("Bertha","Edouard","Josephine")) %>%
+    filter(status %in% c(
+      "hurricane","extratropical",
+      "subtropical storm","tropical storm")) %>%
+    mutate(date = as_any_date(date,format = 'ymd')) %>%
+    mutate(status = factor(status))
+  
+  write_csv(storms,na = "",'example_files/storms.csv')
+  
+  storms_data_dict <- data_dict_extract(storms)
+  
+  write_excel_allsheets(storms_data_dict, "example_files/data_dict_storm.xlsx")
+  
+}
 
 # import files
+create_example_files()
 storms <- read_csv_any_formats("storms.csv")
 storms_data_dict <- read_excel_allsheets("data_dict_storm.xlsx")
 

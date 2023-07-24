@@ -1,6 +1,6 @@
 .Rproj.user
 *.Rproj
-*my_files
+*example_files
 .Rhistory
 .RData
 .Ruserdata
