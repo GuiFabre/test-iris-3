@@ -54,15 +54,34 @@ create_example_files <- function(){
   write_excel_allsheets(storms_data_dict, "example_files/data_dict_storm.xlsx")
   
 }
+prepare_for_git <- function(report_name){
+  
+  # when everything is ok for the report, you can delete original files
+
+  paste0(
+    '.Rproj.user
+*.Rproj
+*example_files
+.Rhistory
+.RData
+.Ruserdata
+',report_name,"/") %>% write_lines(
+      file = paste0(".gitignore"),
+      append = FALSE)
+  
+  if(dir.exists('docs')) try(dir_delete("docs"))
+  try(dir_copy(paste0(report_name,"/docs"),'docs'))
+  
+}
 
 # import files
 create_example_files()
-storms <- read_csv_any_formats("example_files/storms.csv")
-storms_data_dict <- read_excel_allsheets("example_files/data_dict_storm.xlsx")
+my_dataset <- read_csv_any_formats("example_files/storms.csv")
+my_data_dict <- read_excel_allsheets("example_files/data_dict_storm.xlsx")
 
 # select and filter column/rows you would like to include in your visualization
-storms <- 
-  storms %>% 
+my_dataset <- 
+  my_dataset %>% 
   filter(
     status %in%
       c("extratropical","hurricane","tropical storm")) %>%
@@ -72,8 +91,8 @@ storms <-
 report_name <- 'report_storms_test'
 
 dataset_visualize(
-  dataset = storms,
-  data_dict = storms_data_dict,
+  dataset = my_dataset,
+  data_dict = my_data_dict,
   to = report_name)
 
 open_visual_report(report_name)
@@ -83,11 +102,12 @@ open_visual_report(report_name)
 # the variable must be a categorical variable. 
 
 report_name_group <- 'report_storms_by_status'
+grouping_variable <- 'status'
 
 dataset_visualize(
-  dataset = storms,
-  data_dict = storms_data_dict,
-  group_by = 'status',
+  dataset = my_data_dict,
+  data_dict = my_data_dict,
+  group_by = grouping_variable,    ## <--- grouping variable added
   to = report_name_group)
 
 open_visual_report(report_name_group)
@@ -102,5 +122,6 @@ dataset_visualize_redo(report_name)
 open_visual_report(report_name)
 
 # when everything is ok for the report, you can delete original files
-try(dir_delete(paste0(report_name,"/temp_bookdown_report/")))
+prepare_for_git(report_name)
 
+# Go to terminal, add, commit and push.
