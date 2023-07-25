@@ -88,7 +88,7 @@ my_dataset <-
   select(name, status, date, lat, wind, pressure)
 
 # specify the name of the report and the dataset to visualize
-report_name <- 'report_storms_test'
+report_name <- 'my_report_test'
 
 dataset_visualize(
   dataset = my_dataset,
@@ -101,17 +101,17 @@ open_visual_report(report_name)
 # showing results (graphs and charts) will be separated by the grouping variable
 # the variable must be a categorical variable. 
 
-report_name_group <- 'report_storms_by_status'
+report_name_group <- 'my_report_test_grouped'
 grouping_variable <- 'status'
 
 dataset_visualize(
-  dataset = my_data_dict,
+  dataset = my_dataset,
   data_dict = my_data_dict,
   group_by = grouping_variable,    ## <--- grouping variable added
   to = report_name_group)
 
 open_visual_report(report_name_group)
-
+try(dir_delete(report_name_group))
 # Possibility to edit and add comments to the report.
 # Open each Rmd files you want to edit (variables or index) and add a comment 
 # (using > ) or any modification you would like to perform to the report.
@@ -122,6 +122,7 @@ dataset_visualize_redo(report_name)
 open_visual_report(report_name)
 
 # when everything is ok for the report, you can delete original files
+
 prepare_for_git(report_name)
 
 # Go to terminal, add, commit and push.
