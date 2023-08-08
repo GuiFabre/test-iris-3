@@ -1,3 +1,7 @@
+################## 
+#     UQAM       #
+##################
+
 # import libraries
 
 library(tidyverse)   # to transform and shape files
@@ -5,6 +9,7 @@ library(fabR)        # read/write files
 library(madshapR)    # for the function dataset_visualize
 library(haven)       # for categorical variables
 library(fs)
+library(janitor)
 
 # import local functions
 dataset_visualize_redo <- function(report_name){
@@ -75,43 +80,38 @@ prepare_for_git <- function(report_name){
 }
 
 # import files
-create_example_files()
-my_dataset <- read_csv_any_formats("example_files/storms.csv")
-my_data_dict <- read_excel_allsheets("example_files/data_dict_storm.xlsx")
+# create_example_files()
+all_dataset <- read_excel_allsheets("Mission ECLAIR - 2023 - cleaned_data - datasets.xlsx")
+all_data_dict <- read_excel_allsheets("Mission ECLAIR - 2023 - cleaned_data - data_dict.xlsx")
 
 # select and filter column/rows you would like to include in your visualization
+### 
+etablissement <- 'Data_UQAM'
+
 my_dataset <- 
-  my_dataset %>% 
-  filter(
-    status %in%
-      c("extratropical","hurricane","tropical storm")) %>%
-  select(name, status, date, lat, wind, pressure)
+  all_dataset$`cleaned_data - all data` %>%
+  filter(table_id == etablissement) %>%
+  select(id, table_id,contains("logement")) %>%
+  remove_empty("cols")
+
+my_data_dict <- 
+  all_data_dict %>% 
+  data_dict_filter(
+    filter_all = 'dataset_name == "Mission ECLAIR - 2023 - cleaned_data"') %>%
+  data_dict_match_dataset(dataset = my_dataset,out = 'data_dict')
+
+my_dataset <- 
+  data_dict_apply(my_dataset, my_data_dict) %>%
+  dataset_cat_as_labels()
 
 # specify the name of the report and the dataset to visualize
-report_name <- 'my_report_test'
 
 dataset_visualize(
   dataset = my_dataset,
-  data_dict = my_data_dict,
-  to = report_name)
+  to = etablissement)
 
-open_visual_report(report_name)
+open_visual_report(etablissement)
 
-# Possibility to group the visual report by one variable. each statistics and
-# showing results (graphs and charts) will be separated by the grouping variable
-# the variable must be a categorical variable. 
-
-report_name_group <- 'my_report_test_grouped'
-grouping_variable <- 'status'
-
-dataset_visualize(
-  dataset = my_dataset,
-  data_dict = my_data_dict,
-  group_by = grouping_variable,    ## <--- grouping variable added
-  to = report_name_group)
-
-open_visual_report(report_name_group)
-try(dir_delete(report_name_group))
 # Possibility to edit and add comments to the report.
 # Open each Rmd files you want to edit (variables or index) and add a comment 
 # (using > ) or any modification you would like to perform to the report.
